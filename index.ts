@@ -24,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
   };
 
   const app: AppBody = await getResponse(appRequest);
-  const jsonString = JSON.stringify(app, null, 4);
+  const jsonString = JSON.stringify(app, null, 2);
 
   const response = new Response(jsonString, {
     status: 200,
