@@ -1,34 +1,32 @@
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
+import { getResponse, AppRequest, AppBody } from "./app.ts";
+
 const handler = async (req: Request): Promise<Response> => {
   const url = new URL(req.url);
   const fetchUrl = url.searchParams.get("url") || "";
-  const ua = url.searchParams.get("ua") || "iPhone";
-  const encoding = url.searchParams.get("encoding") || "br";
-  const options = url.searchParams.get("options") || "{}";
+  const method = "GET";
 
-  const fetchRequest = new Request(fetchUrl);
-  fetchRequest.headers.append("User-Agent", ua);
-  fetchRequest.headers.append("Accept-Encoding", encoding);
-  fetchRequest.headers.append("Content-Type", "text/html;charset=UTF-8");
+  const params: { [key: string]: string } = {};
+  params["User-Agent"] = url.searchParams.get("ua") || "resh/v0.0.1";
+  params["Accept-Encoding"] = url.searchParams.get("encoding") || "";
 
-  const hash = await JSON.parse(options);
-
-  for (let key in hash) {
-    fetchRequest.headers.append(key, hash[key]);
+  const options = url.searchParams.getAll("h");
+  console.log(options);
+  for (const op of options) {
+    const props = op.split(":");
+    console.log(props);
+    params[props[0]] = props[1];
   }
+  const appRequest: AppRequest = {
+    headers: params,
+    url: fetchUrl,
+    method: method,
+  };
 
-  const fetchResponse = await fetch(fetchRequest);
+  const app: AppBody = await getResponse(appRequest);
+  const jsonString = JSON.stringify(app, null, 4);
 
-  console.log(fetchResponse.status);
-  const json: { [key: string]: string } = {};
-  const fetchHeaders = fetchResponse.headers;
-  for (const key of fetchHeaders.keys()) {
-    json[key] = fetchHeaders.get(key) || "";
-  }
-
-  const body = JSON.stringify(json, null, 2);
-
-  const response = new Response(body, {
+  const response = new Response(jsonString, {
     status: 200,
     headers: {
       "Content-Type": "text/plain",
