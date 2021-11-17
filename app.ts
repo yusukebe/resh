@@ -17,15 +17,22 @@ interface AppBody {
 
 const getResponse = async (appRequest: AppRequest): Promise<AppBody> => {
   const url = toUrl(appRequest.url);
-  const request = new Request(url.toString());
-  for (let key in appRequest.headers) {
-    request.headers.append(key, appRequest.headers[key]);
-  }
+  const request = new Request(url.toString(), {
+    method: appRequest.method,
+    headers: appRequest.headers,
+    mode: "no-cors",
+  });
+
+  request.headers.append("Access-Control-Request-Headers", "*");
+  request.headers.append("Access-Control-Request-Method", "*");
 
   console.log(request.headers);
+
   const response = await fetch(request);
 
   const headers: { [key: string]: string } = {};
+
+  response.body;
 
   const h = response.headers;
   for (const key of h.keys()) {

@@ -8,7 +8,7 @@ const handler = async (req: Request): Promise<Response> => {
 
   const params: { [key: string]: string } = {};
   params["User-Agent"] = url.searchParams.get("ua") || "resh/v0.0.1";
-  params["Accept-Encoding"] = url.searchParams.get("encoding") || "";
+  //params["accept-encoding"] = url.searchParams.get("encoding") || "";
 
   const options = url.searchParams.getAll("h");
   console.log(options);
