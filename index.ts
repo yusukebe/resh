@@ -8,10 +8,10 @@ const handler = async (req: Request): Promise<Response> => {
 
   const params: { [key: string]: string } = {};
   params["User-Agent"] = url.searchParams.get("ua") || "resh/v0.0.1";
-  //params["accept-encoding"] = url.searchParams.get("encoding") || "";
+  params["Accept-Encoding"] = url.searchParams.get("encoding") || "";
 
   const options = url.searchParams.getAll("h");
-  console.log(options);
+
   for (const op of options) {
     const props = op.split(":");
     console.log(props);
