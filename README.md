@@ -1,3 +1,3 @@
-# yusukebe/next-boilerplate
+# yusukebe/resh
 
 

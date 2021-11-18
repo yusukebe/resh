@@ -1,10 +1,9 @@
 {
-  "name": "next-boilerplate",
-  "version": "0.1.0",
-  "repository": "git@github.com:yusukebe/next-boilerplate.git",
+  "name": "resh",
+  "version": "v0.0.1",
+  "repository": "git@github.com:yusukebe/resh.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
