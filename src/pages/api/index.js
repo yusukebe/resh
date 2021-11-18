@@ -23,10 +23,14 @@ const api = async (req, res) => {
     header: await getHeadData(request.headers)
   };
 
+  const startTime = Date.now()
   const response = await fetch(request);
+  const endTime = Date.now()
+
   body["response"] = {
     "status": response.status,
     "statusText": response.statusText,
+    "responseTime": (endTime - startTime) / 1000,
     "header": await getHeadData(response.headers)
   }
 
